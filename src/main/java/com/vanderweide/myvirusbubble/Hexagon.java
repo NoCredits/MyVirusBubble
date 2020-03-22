@@ -201,7 +201,7 @@ public  class Hexagon extends GameObject {
 //            mPaint.setColor(Color.YELLOW);
 //            canvas.drawArc(oval, -90, 89, false, mPaint);
 
-            if (!shouldDrop){
+            if (!shouldDrop){ //draw legs
                 if (NE!=null) {
                     float dy=((NE.getY()-getY()))/scaleRadius;
                     float dx=((NE.getX()-getX()))/scaleRadius;
@@ -317,17 +317,17 @@ public  class Hexagon extends GameObject {
         updatePoints();
     }
 */
-    public int getType(){
-        if (this.gridPosY%2==0){ //even row
-            if (this.gridPosX==0 || this.gridPosX==3 || this.gridPosX==6 || this.gridPosX==9 || this.gridPosX==12 || this.gridPosX==15) type=1; //NE, SE, W
-            else if (this.gridPosX==2 || this.gridPosX==5 || this.gridPosX==8 || this.gridPosX==11 || this.gridPosX==14 || this.gridPosX==17) type=2; //NE, SE, W
-        } else {
-            if (this.gridPosX==0 || this.gridPosX==3 || this.gridPosX==6 || this.gridPosX==9 || this.gridPosX==12 || this.gridPosX==15) type=2; //NE, SE, W
-            else if (this.gridPosX==1 || this.gridPosX==4 || this.gridPosX==7 || this.gridPosX==10 || this.gridPosX==13 || this.gridPosX==16) type=1;//NE, SE, W
-        }
-        Log.i("type",this.type+" row "+this.gridPosY%2+" x= " + gridPosX );
-        return this.type;
-    }
+//    public int getType(){
+//        if (this.gridPosY%2==0){ //even row
+//            if (this.gridPosX==0 || this.gridPosX==3 || this.gridPosX==6 || this.gridPosX==9 || this.gridPosX==12 || this.gridPosX==15) type=1; //NE, SE, W
+//            else if (this.gridPosX==2 || this.gridPosX==5 || this.gridPosX==8 || this.gridPosX==11 || this.gridPosX==14 || this.gridPosX==17) type=2; //NE, SE, W
+//        } else {
+//            if (this.gridPosX==0 || this.gridPosX==3 || this.gridPosX==6 || this.gridPosX==9 || this.gridPosX==12 || this.gridPosX==15) type=2; //NE, SE, W
+//            else if (this.gridPosX==1 || this.gridPosX==4 || this.gridPosX==7 || this.gridPosX==10 || this.gridPosX==13 || this.gridPosX==16) type=1;//NE, SE, W
+//        }
+//        Log.i("type",this.type+" row "+this.gridPosY%2+" x= " + gridPosX );
+//        return this.type;
+//    }
 
 
     public void calculateGridPosToScreen(int padding){

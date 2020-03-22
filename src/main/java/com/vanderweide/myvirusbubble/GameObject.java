@@ -81,7 +81,7 @@ public abstract class GameObject {
         this.collidable=false;
         this.screenWidth=320;
         this.screenHeight=480;
-        this.scaleRadius=0.9f;
+        this.scaleRadius=0.8f;
         this.score=10;
         this.type=0;
         offsetX=0;
@@ -306,5 +306,5 @@ public abstract class GameObject {
         this.y=(int)(this.gridPosY*(this.radius+padding));
 
     }
-    public int getType(){return 0;}
+
 }

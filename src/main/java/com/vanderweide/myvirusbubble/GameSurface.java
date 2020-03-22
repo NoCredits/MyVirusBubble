@@ -136,7 +136,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
             int color = ammo.color;
             ammo.setVelocity(0);
 
-            if (ammo.getType()!=0) {  //valid position
                 ammo.inGrid = true;
 
                 Utils.createArrayList(gameList);
@@ -175,21 +174,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
                     }
                 }
 
-            } else {  //not valid
-                if (ammo.color==foe.color) { //
-                    ammo.remove =true;
-                    ammo.delete=true;
-                    ammo.score=-100;
-                    ammo.collidable=false;
-                } else {
-                    ammo.remove =true;
-                    ammo.delete=true;
-                    ammo.score=-100;
-                    ammo.collidable=false;
-                    foe.color=ammo.color;
-                }
-                ammo.shouldDrop=true;
-            }
 
         }
 
@@ -288,7 +272,7 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void draw(Canvas canvas)  {
         super.draw(canvas);
-        Utils.drawBackgroundGrid(canvas);
+//        Utils.drawBackgroundGrid(canvas);
 
 
         Utils.setOffSetY(gameList);

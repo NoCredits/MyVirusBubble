@@ -20,7 +20,7 @@ public class Utils {
     public static GameObject[][] grid;
     public static List <GameObject> backGrid;
 
-    public static int cols=12;
+    public static int cols=11;
     public static int rows=11;
 
     public static boolean falling;
@@ -354,9 +354,8 @@ public class Utils {
                     hex.collidable=true;
                     hex.calculateGridPosToScreen(0);
 
-                //    if ((r%2!=0 && c%2==0) || (r%2==0 ) )
-                    if ((r%2!=0 && (c!=2 && c!=5 && c!=8 && c!=11 ))
-                            || (r%2==0 ) && (c!=1 && c!=4 && c!=7 && c!=10) )
+//                    if ((r%2!=0 && (c!=2 && c!=5 && c!=8 && c!=11 ))
+//                            || (r%2==0 ) && (c!=1 && c!=4 && c!=7 && c!=10) )
                         gameList.add(hex);
                 }
             }
@@ -366,12 +365,7 @@ public class Utils {
     }
 
 
-    public static void legalCollide(GameObject ammo, GameObject foe){
-        if (foe.getType()==1) {
 
-        }
-
-    }
 
 
 }
