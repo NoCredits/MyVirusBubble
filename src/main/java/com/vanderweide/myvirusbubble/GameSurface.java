@@ -1,12 +1,21 @@
 package com.vanderweide.myvirusbubble;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Picture;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -278,6 +287,12 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
         Utils.setOffSetY(gameList);
         Utils.drawLayers(canvas,gameList);
 
+        SVG svg = SVGParser.getSVGFromResource(this.getResources(), R.raw.android);
+        Picture picture = svg.getPicture();
+        Rect newRect=new Rect(10,10,200,200);
+        canvas.drawPicture(picture, newRect);
+
+
     }
 
     // Implements method of SurfaceHolder.Callback
@@ -296,8 +311,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
         gameList.add(hex);
         ammo=hex;
         ammo.shooter=true;
-
-
         this.gameThread = new GameThread(this,holder);
         this.gameThread.setRunning(true);
         this.gameThread.start();

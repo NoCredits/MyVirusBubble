@@ -4,7 +4,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Picture;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 
 import java.util.List;
 
@@ -17,6 +23,14 @@ public  class Hexagon extends GameObject {
     private Point[] points = new Point[SIDES];
     private Point center;
     private int rotation = 90;
+    private SVG svgGreen = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.androidgreen);
+    private SVG svgBlue = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.androidblue);
+    private SVG svgGray = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.androidgray);
+    private SVG svgPurple = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.androidpurple);
+    private SVG svgRed = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.androidred);
+    private SVG svg= SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.android);;
+    //private SVG svg = SVGParser.getSVGFromResource(gameSurface.getResources(), R.raw.virus);
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -36,6 +50,7 @@ public  class Hexagon extends GameObject {
     public Hexagon(GameSurface gameSurface, int color) {
         //super(gameSurface,color,,0,0);
         super(gameSurface,color,(320/(Utils.cols-1))/1.95f,1,1);
+
         this.center=new Point(1,1);
 //        this.paint.setStyle(Paint.Style.FILL);
         //this.paint.setStyle(Paint.Style.STROKE);
@@ -183,23 +198,21 @@ public  class Hexagon extends GameObject {
 
         if (rendered &&  !shooter){
 //            canvas.drawCircle(getX()*scale,getY()*scale -(Utils.offsetY*scale), getRadius()*scale, paint);
-            canvas.drawCircle(getDX(),getDY(), getRadius()*scale*scaleRadius, paint);
-            // Draw the circle at (x,y) with radius 250
-//            Paint mPaint=paint;
-//
-//            mPaint.setColor(Color.WHITE);
-//            mPaint.setDither(true);                    // set the dither to true
-//            mPaint.setStyle(Paint.Style.STROKE);       // set to STOKE
-//            mPaint.setStrokeJoin(Paint.Join.ROUND);    // set the join to round you want
-//            mPaint.setStrokeCap(Paint.Cap.ROUND);      // set the paint cap to round too
-//            mPaint.setPathEffect(new CornerPathEffect(50) );   // set the path effect when they join.
-//            mPaint.setAntiAlias(true);
-//
-//            RectF oval = new RectF(getDX() - radius, getDY() - radius, getDX() + radius, getDY() + radius);
-//            //RectF oval = new RectF(getX()-radius, getY() - radius, getX() + radius, getY() + radius);
-//            canvas.drawArc(oval, -90, 90, false, mPaint);
-//            mPaint.setColor(Color.YELLOW);
-//            canvas.drawArc(oval, -90, 89, false, mPaint);
+
+            //canvas.drawCircle(getDX(),getDY(), getRadius()*scale*scaleRadius, paint);
+
+            Picture picture;
+            if (color== Color.GREEN) picture=svgGreen.getPicture();
+            else if (color== Color.RED) picture=svgRed.getPicture();
+            else if (color== Color.BLUE) picture=svgBlue.getPicture();
+            else if (color== Color.LTGRAY) picture=svgGray.getPicture();
+            else if (color== Color.MAGENTA) picture=svgPurple.getPicture();
+            else  picture= svg.getPicture();
+            //Rect newRect=new Rect(10,10,200,200);
+            Rect newRect=new Rect(topX(),topY(),botX(),botY());
+
+            canvas.drawPicture(picture, newRect);
+
 
             if (!shouldDrop){ //draw legs
                 if (NE!=null) {
@@ -217,6 +230,7 @@ public  class Hexagon extends GameObject {
                     else paintLine.setColor(Color.DKGRAY);
                     canvas.drawLine(getDX()+dx,getDY()+dy,E.getDX()-dx,E.getDY()-dy,paintLine);
                 }
+
                 if (SE!=null)  {
                     float dy=((SE.getY()-getY()))/scaleRadius;
                     float dx=((SE.getX()-getX()))/scaleRadius;
@@ -276,11 +290,19 @@ public  class Hexagon extends GameObject {
             this.y = y +  (int)(distance* movingVectorY / movingVectorLength);
 
 
+//            if(this.x < this.getRadius() +5)  { //-1 ? even als test. zat een bug in
+//                this.x = (int) this.getRadius()+5;
+//                this.movingVectorX = - this.movingVectorX;
+//            } else if(this.x > this.screenWidth +this.getRadius() )  { //+1? bug tracking
+//                this.x= (int) (this.screenWidth + this.getRadius() );
+//                this.movingVectorX = - this.movingVectorX;
+//            }
+
             if(this.x < this.getRadius() +5)  { //-1 ? even als test. zat een bug in
                 this.x = (int) this.getRadius()+5;
                 this.movingVectorX = - this.movingVectorX;
-            } else if(this.x > this.screenWidth +this.getRadius()*2 -10)  { //+1? bug tracking
-                this.x= (int) (this.screenWidth + this.getRadius()*2 -10);
+            } else if(this.x > this.screenWidth +this.getRadius() )  { //+1? bug tracking
+                this.x= (int) (this.screenWidth + this.getRadius() );
                 this.movingVectorX = - this.movingVectorX;
             }
 

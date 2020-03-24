@@ -19,6 +19,22 @@ public abstract class GameObject {
         return  y*scale+offsetY*scale;
     }
 
+    public int topX() {
+        return  (int) (x*scale+offsetX*scale-radius*scale);
+    }
+
+    public int topY() {
+
+        return  (int) (y*scale+offsetY*scale-radius*scale);
+    }
+    public int botX() {
+        return  (int) (x*scale+offsetX*scale+radius*scale);
+    }
+
+    public int botY() {
+
+        return  (int) (y*scale+offsetY*scale+radius*scale);
+    }
 
     int color;
     Paint paint;
@@ -92,8 +108,9 @@ public abstract class GameObject {
     GameObject(GameSurface gameSurface,int color, float radius, int x, int y)  {
         this();
         this.gameSurface=gameSurface;
-        this.scale=this.getGameSurface().getWidth()/this.screenWidth;
-        this.scaleX=this.getGameSurface().getWidth()/this.screenWidth;
+        this.scale=(this.getGameSurface().getWidth())/(this.screenWidth+4*radius);
+      //  this.scaleX=this.getGameSurface().getWidth()/this.screenWidth;
+        this.scaleX=(this.getGameSurface().getWidth())/(this.screenWidth+4*radius);
         this.scaleY=this.getGameSurface().getHeight()/this.screenHeight;
         this.radius=radius;
         this.color=color;
